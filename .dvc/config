@@ -1,0 +1,4 @@
+[core]
+    remote = remote-storage
+['remote "remote-storage"']
+    url = s3://006559180974-team-39ccff031b21ecd0ff35751bcd4bcb9e
