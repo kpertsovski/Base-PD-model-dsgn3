@@ -1,0 +1,8 @@
+promptResponse:
+  modelName: Base-PD-model-dsgn3
+  userName: Risk
+  modelClass: NowCasting
+  modelOwner: Finance
+  modelDescription: Demo model
+  languages:
+    - Python
