@@ -1,0 +1,2 @@
+Contains code for data processing, model creation that are required by validation team to replicate the model.
+dvc.yaml is used to create model code flow and establish the modular structure of the given model.

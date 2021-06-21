@@ -1,0 +1,157 @@
+stages:
+  data_loading:
+    cmd: python3 data_raw-sample.py ../../data/raw ../../data/interim
+    deps:
+    - data_raw-sample.py
+    - ../../data/raw
+    params:
+    - data_raw.size_cutoff
+    outs:
+    - ../../data/interim/TREPP_sample-dataset.csv:
+        cache: false
+        
+  data_in_scope_selection:
+    cmd: python3 data_clean.py ../../data/interim ../../data/interim
+    deps:
+    - data_clean.py
+    - ../../data/interim//TREPP_sample-dataset.csv
+    params:
+    - data_clean.term_default_cutoff
+    outs:
+    - ../../data/interim/TREPP_sample-dataset_term-defaults.csv:
+        cache: false
+        
+  data_quality:
+    cmd: python3 data_quality.py ../../data/interim ../../data/interim
+    deps:
+    - data_quality.py
+    - ../../data/interim/TREPP_sample-dataset_term-defaults.csv
+    - ../../data/raw/dq_checks.xlsx
+    outs:
+    - 5_1_1_data_quality/output/missing_values.json
+    - 5_1_1_data_quality/output/descriptive_stats.json   
+    - ../../data/interim/TREPP_sample-dataset_term-defaults_post_dq.csv:
+        cache: false
+        
+  data_quality_capping:
+    cmd: Rscript capping.R
+    deps:
+    - capping.R
+    - ../../data/interim/TREPP_sample-dataset_term-defaults_post_dq.csv
+    outs:
+    - 5_1_1_data_quality/output/output_summary.json
+    - ../../data/interim/TREPP_sample-dataset_term-defaults_post_dq_capping.csv
+   
+  data_quality_final_descriptive:
+    cmd: python3 DQ_descriptive.py ../../data/interim ../../data/interim
+    deps:
+    - DQ_descriptive.py
+    - ../../data/interim/TREPP_sample-dataset_term-defaults_post_dq_capping.csv
+    outs:
+    - 5_1_1_data_quality/output/descriptive_stats_new.json    
+        
+  data_sampling:
+    cmd: python3 sampling.py ../../data/interim ../../data/interim
+    deps:
+    - sampling.py
+    - ../../data/interim/TREPP_sample-dataset_term-defaults_post_dq_capping.csv
+    params:
+    - sampling.bad_flag
+    - sampling.test_size
+    outs:
+    - ../../data/interim/X_train.csv:
+        cache: false
+    - ../../data/interim/X_test.csv:
+        cache: false
+    - ../../data/interim/y_train.csv:
+        cache: false
+    - ../../data/interim/y_test.csv:
+        cache: false
+        
+  feature_engineering:
+    cmd: python3 feature_engineering.py ../../data/interim ../../data/interim
+    deps:
+    - feature_engineering.py
+    - ../../data/interim/X_train.csv
+    - ../../data/interim/X_test.csv
+    - ../../data/interim/y_train.csv
+    - ../../data/interim/y_test.csv
+    params:
+    - sampling.bad_flag
+    - feature_engineering.n_bins_fine_classing
+    outs:
+    - 5_1_2_information_value/output:
+        persist: true
+    - ../../data/interim/X_train_transformed.csv:
+        cache: false
+    - ../../data/interim/X_test_transformed.csv:
+        cache: false
+    - ../../data/interim/y_train_transformed.csv:
+        cache: false
+    - ../../data/interim/y_test_transformed.csv:
+        cache: false
+        
+  model_training:
+    cmd: python3 model_development.py ../../data/interim ../../data/processed
+    deps:
+    - model_development.py
+    - ../../data/interim/X_train_transformed.csv
+    - ../../data/interim/X_test_transformed.csv
+    - ../../data/interim/y_train_transformed.csv
+    - ../../data/interim/y_test_transformed.csv
+    params:
+    - model_development.numerical_columns_as_features
+    - model_development.categorical_columns_as_features
+    - model_development.model_with_intercept
+    outs:
+    - 5_1_3_model_coefficient/output:
+        persist: true
+    - ../../data/processed/logistic-regression-model.pkl:
+        cache: false
+    - ../../data/processed/logistic-regression-model.csv:
+        cache: false
+        
+  model_testing:
+    cmd: python3 model_testing.py ../../data/interim ../../data/processed
+    deps:
+    - model_testing.py
+    - ../../data/interim/X_train_transformed.csv
+    - ../../data/interim/X_test_transformed.csv
+    - ../../data/interim/y_train_transformed.csv
+    - ../../data/interim/y_test_transformed.csv
+    - ../../data/processed/logistic-regression-model.pkl
+    - ../../data/processed/logistic-regression-model.csv
+    outs:
+    - ../../data/processed/plots.json:
+        cache: false
+    metrics:
+    - ../../data/processed/gini_values.json:
+        cache: false
+        
+  scores:
+    cmd: python3 mapping.py ../../data/interim ../../data/processed ../../data/raw
+    deps:
+    - mapping.py
+    - ../../data/interim/X_train_transformed.csv
+    - ../../data/interim/X_test_transformed.csv
+    - ../../data/interim/y_train_transformed.csv
+    - ../../data/interim/y_test_transformed.csv
+    - ../../data/raw/mapping.csv
+    - ../../data/processed/logistic-regression-model.pkl
+    - ../../data/processed/logistic-regression-model.csv
+    outs:
+    - ../../data/processed/rating_train.csv:
+        cache: false
+    - ../../data/processed/rating_test.csv:
+        cache: false
+    #- ../../code/model_pipeline/5_1_4_score/output/train_hist_all_count.png:
+    #    cache: false
+    #- ../../code/model_pipeline/5_1_4_score/output/train_hist_all_percentage.png:
+    #    cache: false
+    #- ../../code/model_pipeline/5_1_4_score/output/train_region_count.png:
+    #    cache: false
+    #- ../../code/model_pipeline/5_1_4_score/output/train_region_percentage.png:
+    #    cache: false
+   # metrics:
+   # - ../../data/processed/rating.json:
+   #     cache: false

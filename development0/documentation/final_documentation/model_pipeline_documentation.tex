@@ -1,0 +1,326 @@
+5.1 Performance testing
+
+5.1.1 Data quality
+
+In data quality analysis, we focussed on assessing whether the data used
+in input of the model (e.g., data from systems and databases) are
+reliable. Following tests are performed: 1) Missing values 2)
+Descriptive statistics
+
+Missing values
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Feature & Missing\tabularnewline
+\midrule
+\endhead
+mrfytdocc & 42.87\%\tabularnewline
+priorfyocc & 25.28\%\tabularnewline
+priorfydscr & 21.82\%\tabularnewline
+debt\_yield\_p1 & 17.51\%\tabularnewline
+OLTV & 3.4\%\tabularnewline
+\bottomrule
+\end{longtable}
+
+Descriptive statistics
+
+\begin{longtable}[]{@{}lllllllll@{}}
+\toprule
+\begin{minipage}[b]{0.05\columnwidth}\raggedright
+Metrics\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedright
+Priorfydscr\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
+Mrfytdocc\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
+Debt yield p1\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedright
+Priorfyocc\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
+Oltv\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
+Division\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedright
+Interestonly\strut
+\end{minipage} & \begin{minipage}[b]{0.11\columnwidth}\raggedright
+Bad flag final v3\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.05\columnwidth}\raggedright
+count\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+72687\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+53116\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+76691\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+69471\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+89812\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+92974\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+92974\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+92974\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.05\columnwidth}\raggedright
+unique\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+10\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+3\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+N/A\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.05\columnwidth}\raggedright
+top\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+South-Atlantic\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+N\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+N/A\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.05\columnwidth}\raggedright
+freq\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+19311\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+85294\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+N/A\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.05\columnwidth}\raggedright
+mean\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+1.8395755298\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+93.4809228426\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+12.5337343705\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+93.754880108\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+66.4377253596\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+0.011960333\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.05\columnwidth}\raggedright
+std\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+1.8170684715\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+9.0892893303\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+13.8366159547\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+9.2084476055\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+17.2802191395\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+0.1087079139\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.05\columnwidth}\raggedright
+min\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+-2.8302\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+0.78\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+-26.38654378\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+0.9\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.05\columnwidth}\raggedright
+25\%\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+1.2978\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+91.9175\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+6.8698379192\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+92\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+62.8\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.05\columnwidth}\raggedright
+50\%\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+1.53\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+95.1\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+10.461944328\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+96\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+72.59\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.05\columnwidth}\raggedright
+75\%\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+1.86\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+100\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+14.0404936145\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+100\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+77.6\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.05\columnwidth}\raggedright
+max\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+63.97\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+100\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+408.3590591\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+100\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+96.24\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+N/A\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+1\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+5.1.2 Information value
+
+Information Value (IV), calculated at risk driver level, is a measure
+used to quantify the predictive power of a risk driver. More
+specifically, how well can a risk driver discriminate between a default
+and no-default response.
+
+The test returns IV for selected risk drivers listed in the table below.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Feature & Iv total\tabularnewline
+\midrule
+\endhead
+priorfydscr & 0.8183686365\tabularnewline
+priorfyocc & 0.5424667177\tabularnewline
+mrfytdocc & 0.409471795\tabularnewline
+debt\_yield\_p1 & 0.293684185\tabularnewline
+OLTV & 0.2461692548\tabularnewline
+Division & 0.235608834\tabularnewline
+interestonly & 0.0443585828\tabularnewline
+\bottomrule
+\end{longtable}
+
+The table above provides the IV of all the variables used in the model,
+higher IV implies more discriminatory power of the variable between the
+default and non-default customers.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+5.1.3 Model coefficient
+
+The PD model is developed using logistic regression technique with 7
+risk drivers (independent variables) in the final model equation. Please
+find below the list of parameters and their model coefficients.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Parameter & Coef\tabularnewline
+\midrule
+\endhead
+const & -4.4168461324\tabularnewline
+priorfydscr & -0.7618294827\tabularnewline
+mrfytdocc & -0.3871917877\tabularnewline
+debt\_yield\_p1 & -0.1510340457\tabularnewline
+priorfyocc & -0.4915827429\tabularnewline
+OLTV & -0.310497772\tabularnewline
+Division & -0.5789169907\tabularnewline
+interestonly & -0.3459055608\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+5.1.3.2 Scoring
+
+Based on the forecasted probability of default, each facility is assiged
+to a rating. Below the distribution of the ratings for the train and
+test dataset.
+
+Train dataset distribution
+
+Test dataset distribution

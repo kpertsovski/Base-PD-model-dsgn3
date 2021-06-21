@@ -1,0 +1,1 @@
+<p>For training sample, the KS value is 0.4219, which is higher than the threshold of 0.4, indicating that discriminatory power of the model is good. For testing sample, the KS value is 0.3811, which is lower than the threshold of 0.4, indicating that discriminatory power of the model is not sufficient.</p>

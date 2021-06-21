@@ -1,0 +1,29 @@
+# file params.yaml
+
+data_raw:
+  size_cutoff: 100000
+
+data_clean:
+  term_default_cutoff: 12
+
+sampling:
+  bad_flag: 'bad_flag_final_v3'
+  test_size: 0.2
+
+feature_engineering:
+  n_bins_fine_classing: 10
+  
+model_development:
+  numerical_columns_as_features: 
+  - 'priorfydscr'
+  - 'mrfytdocc'
+  - 'debt_yield_p1'
+  - 'priorfyocc'
+  - 'OLTV'
+  categorical_columns_as_features:
+  - 'Division'
+  - 'interestonly'
+  model_with_intercept: 'yes'
+
+model_testing:
+  benchmark: 'front-office_logistic-regression-model.csv'

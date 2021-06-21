@@ -1,0 +1,53 @@
+schema: '2.0'
+stages:
+  ROC-curve:
+    cmd: Rscript 5_1_4_ROC_curve/ROC_curve.R ../../data/interim 00_model_loading
+    deps:
+    - path: 00_model_loading/logistic-regression-model.RDS
+      md5: 248581bd8dfa71cf38b88720b618f1fe
+      size: 6179575
+    - path: 5_1_4_ROC_curve/ROC_curve.R
+      md5: dc5398a7573f807e3495541251d4da8b
+      size: 5540
+    params:
+      params.yaml:
+        model_loading.bad_flag: bad_flag_final_v3
+        model_loading.model_name: logistic-regression-model
+    outs:
+    - path: 5_1_4_ROC_curve/output/output.json
+      md5: 34d222f3cd04e79e821ef1a018184a2f
+      size: 56
+  model_loading:
+    cmd: Rscript 00_model_loading/model_loading.R ../../data/interim ../../data/processed
+    deps:
+    - path: ../../data/processed/logistic-regression-model.csv
+      md5: 9217f32639ca35059d5e09d2352c7f06
+      size: 1161
+    - path: 00_model_loading/model_loading.R
+      md5: fefa06e9739117d2d1c932ca30b813e9
+      size: 1470
+    params:
+      params.yaml:
+        model_loading.model_name: logistic-regression-model
+    outs:
+    - path: 00_model_loading/logistic-regression-model.RDS
+      md5: 248581bd8dfa71cf38b88720b618f1fe
+      size: 6179575
+  KS-statistic:
+    cmd: Rscript 5_1_5_KS_statistic/01_KS_statistic.R ../../data/interim 00_model_loading
+    deps:
+    - path: 00_model_loading/logistic-regression-model.RDS
+      md5: 248581bd8dfa71cf38b88720b618f1fe
+      size: 6179575
+    - path: 5_1_5_KS_statistic/01_KS_statistic.R
+      md5: eb5ccad708d07af7dc4900642b7a4955
+      size: 6135
+    params:
+      params.yaml:
+        KS-statistic.num_of_groups: 20
+        model_loading.bad_flag: bad_flag_final_v3
+        model_loading.model_name: logistic-regression-model
+    outs:
+    - path: 5_1_5_KS_statistic/output/output.json
+      md5: 19fd32cb29c4b8275349ae6caee3aaf6
+      size: 57

@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<title>documentation</title>
+</head>
+<body>
+<hr>
+<h2>5.2 PD model stress test</h2>
+<h2>5.2.1 Kolmogorov–Smirnov Test</h2>
+The KS statistic is used to measure the discriminatory power of the PD model. It is defined as the maximum difference between the cumulative percentage of good samples (i.e., non-defaulters) and the cumulative percentage of bad samples (i.e., defaulters). A higher KS value implies a good fit of the model.
+<p>The test returns a KS value.</p>
+<table>
+<thead>
+<tr>
+<th>Ks statistic train</th>
+<th>Ks statistic test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.4219</td>
+<td>0.3811</td>
+</tr>
+</tbody>
+</table>
+<p>For training sample, the KS value is 0.4219, which is higher than the threshold of 0.4, indicating that discriminatory power of the model is good. For testing sample, the KS value is 0.3811, which is lower than the threshold of 0.4, indicating that discriminatory power of the model is not sufficient.</p>
+<hr>
+<h2>5.2.2 Variance Inflation Factor</h2>
+This test is to assess the multicollinearity among the risk drivers. The variance inflation factor (VIF) quantifies the severity of multicollinearity in an regression analysis caused by correlation between multiple ‘independent variables’ in a  model (i.e., the risk drivers). It is a measure of how much the variance of an estimated regression coefficient is inflated because of multicollinearity in the model. High levels of multicollinearity results in unstable parameter estimates and renders the model statistically invalid.
+<p>The test returns VIF value for each variable listed in the table below.</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Vif</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>priorfydscr_transformed</td>
+<td>1.3352</td>
+</tr>
+<tr>
+<td>mrfytdocc_transformed</td>
+<td>1.6708</td>
+</tr>
+<tr>
+<td>debt_yield_p1_transformed</td>
+<td>1.364</td>
+</tr>
+<tr>
+<td>priorfyocc_transformed</td>
+<td>1.6813</td>
+</tr>
+<tr>
+<td>OLTV_transformed</td>
+<td>1.2259</td>
+</tr>
+<tr>
+<td>Division_transformed</td>
+<td>1.0953</td>
+</tr>
+<tr>
+<td>interestonly_transformed</td>
+<td>1.045</td>
+</tr>
+</tbody>
+</table>
+<p>As shown in the above table, all variables have a VIF lower than 4, indicating the model does not suffer from multicollinearity.</p>
+<hr>
+<h2>5.2.3 Receiver Operating Characteristic curve</h2>
+Receiver Operating Characteristic (ROC) is a curve in a unit square which is used to assess the accuracy of the diagnostic (e.g. rating) system. The area under curve (AUC) is the area under the ROC curve. Higher AUC means higher discriminatory power of model.
+<table>
+<thead>
+<tr>
+<th>Area under curve</th>
+<th>Gini coefficient</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.7743</td>
+<td>0.5487</td>
+</tr>
+</tbody>
+</table>
+<p>As shown in the above table, the AUC value is higher than 0.7 and the Gini value of the model is higher than 0.4, indicating that discriminatory power of the model is good.</p>
+<hr>
+<h2>5.2.4 Normal Test</h2>
+The aim of the test is to evaluate the adequacy of observed default rates comparing to predicted PD. The test is performed on the level of rating grade. It is applied under the assumption that the mean default rate does not vary too much over time and that default events in different years are independent. The normal test is motivated by the Central Limit Theorem and is based on a normal approximation of the distribution of the time-averaged default rates.
+With high enough (>30) number (n) of observations which are independent, Point in Time (PIT) observed default rate (ODR) is expected to be normally distributed. The algorithm of the test is to calculate time-weighted (or simple arithmetic) average of all PiT ODRs, calculate standard error of this statistic and derive confidence interval for it. 
+<p>The test returns a table of p values and a brief interpretation of the test result for each rating grade.</p>
+<table>
+<thead>
+<tr>
+<th>Rating class</th>
+<th>Predicted pd upper boundary</th>
+<th>Default rate</th>
+<th>Normal test p value</th>
+<th>Normal test result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0.1%</td>
+<td>0.13%</td>
+<td>0.1063</td>
+<td>Acceptable</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.26%</td>
+<td>0.22%</td>
+<td>0.1439</td>
+<td>Acceptable</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0.42%</td>
+<td>0.42%</td>
+<td>0.1088</td>
+<td>Acceptable</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0.56%</td>
+<td>0.53%</td>
+<td>0.1982</td>
+<td>Acceptable</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.71%</td>
+<td>0.7%</td>
+<td>0.2359</td>
+<td>Acceptable</td>
+</tr>
+<tr>
+<td>6</td>
+<td>0.93%</td>
+<td>0.91%</td>
+<td>0.2364</td>
+<td>Acceptable</td>
+</tr>
+<tr>
+<td>7</td>
+<td>1.12%</td>
+<td>0.7%</td>
+<td>0.2665</td>
+<td>Acceptable</td>
+</tr>
+<tr>
+<td>8</td>
+<td>1.41%</td>
+<td>1.1%</td>
+<td>0.4014</td>
+<td>Acceptable</td>
+</tr>
+<tr>
+<td>9</td>
+<td>2.56%</td>
+<td>1.91%</td>
+<td>0.4329</td>
+<td>Acceptable</td>
+</tr>
+<tr>
+<td>10</td>
+<td>15%</td>
+<td>5.37%</td>
+<td>0.0627</td>
+<td>Acceptable</td>
+</tr>
+</tbody>
+</table>
+<p>As shown in the above table, the p-value of Normal test for all segments is higher than 0.05, which means the null hypothesis cannot be rejected and there is evidence that the predicted PD does not deviate from the long run average of observed values. Therefore, the accuracy of the model is adequate.</p>
+</body>
+</html>

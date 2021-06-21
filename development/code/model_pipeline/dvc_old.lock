@@ -1,0 +1,179 @@
+schema: '2.0'
+stages:
+  data_loading:
+    cmd: python3 data_raw-sample.py ../../data/raw ../../data/interim
+    deps:
+    - path: ../../data/raw
+      md5: 8aac8bb5de065dabb8d48065e158655f.dir
+      size: 1710364834
+      nfiles: 4
+    - path: data_raw-sample.py
+      md5: 655efdba0c1c3837a5fe27c706e7950e
+      size: 2173
+    params:
+      params.yaml:
+        data_raw.size_cutoff: 100000
+    outs:
+    - path: ../../data/interim/TREPP_sample-dataset.csv
+      md5: 26c374209df84d329a1a12019d01128e
+      size: 91837382
+  data_in_scope_selection:
+    cmd: python3 data_clean.py ../../data/interim ../../data/interim
+    deps:
+    - path: ../../data/interim//TREPP_sample-dataset.csv
+      md5: 26c374209df84d329a1a12019d01128e
+      size: 91837382
+    - path: data_clean.py
+      md5: 1a0c1c7e2374e4ae743ca90470facbfa
+      size: 1627
+    params:
+      params.yaml:
+        data_clean.term_default_cutoff: 12
+    outs:
+    - path: ../../data/interim/TREPP_sample-dataset_term-defaults.csv
+      md5: e822e139b8cb1ae51b3aa19e7ce1cd82
+      size: 84482939
+  data_quality:
+    cmd: python3 data_quality.py ../../data/interim ../../data/interim
+    deps:
+    - path: ../../data/interim/TREPP_sample-dataset_term-defaults.csv
+      md5: e822e139b8cb1ae51b3aa19e7ce1cd82
+      size: 84482939
+    - path: ../../data/raw/dq_checks.xlsx
+      md5: 506dbec0a3ca1914c3832fcef962b138
+      size: 11844
+    - path: data_quality.py
+      md5: d17db3ce200ebb2000210f74b2f55955
+      size: 5462
+    outs:
+    - path: ../../data/interim/TREPP_sample-dataset_term-defaults_post_dq.csv
+      md5: 783b5f40f4e54653b68aa57699208ad1
+      size: 83895831
+    - path: 5_1_1_data_quality/output/descriptive_stats.json
+      md5: 2df5173ae7a10f773583b9d88f4c821d
+      size: 2074
+    - path: 5_1_1_data_quality/output/missing_values.json
+      md5: 507eb9971a9d5c54f0cc15c4c6ad792b
+      size: 226
+  data_quality_capping:
+    cmd: Rscript capping.R
+    deps:
+    - path: ../../data/interim/TREPP_sample-dataset_term-defaults_post_dq.csv
+      md5: 783b5f40f4e54653b68aa57699208ad1
+      size: 83895831
+    - path: capping.R
+      md5: 46df0136552cb512be684abdc100a5db
+      size: 3622
+    outs:
+    - path: ../../data/interim/TREPP_sample-dataset_term-defaults_post_dq_capping.csv
+      md5: 6bfaf238a19ad687ace528b47cd7f182
+      size: 83184189
+    - path: 5_1_1_data_quality/output/output_summary.json
+      md5: fb611c6a7088932c90df4e3293624c38
+      size: 383
+  data_sampling:
+    cmd: python3 sampling.py ../../data/interim ../../data/interim
+    deps:
+    - path: ../../data/interim/TREPP_sample-dataset_term-defaults_post_dq_capping.csv
+      md5: 6bfaf238a19ad687ace528b47cd7f182
+      size: 83184189
+    - path: sampling.py
+      md5: 55670ccc1b8bf3e27df815f9a3c29631
+      size: 1389
+    params:
+      params.yaml:
+        sampling.bad_flag: bad_flag_final_v3
+        sampling.test_size: 0.2
+    outs:
+    - path: ../../data/interim/X_test.csv
+      md5: 8147f8c684a6ec1c4f32c9093e196969
+      size: 15225091
+    - path: ../../data/interim/X_train.csv
+      md5: c4935cf3c1b73d41c23686db709591cb
+      size: 60832298
+    - path: ../../data/interim/y_test.csv
+      md5: eb06d5c4cb3f5235396387493722b175
+      size: 37208
+    - path: ../../data/interim/y_train.csv
+      md5: 4a167499445ec7a187a9c1ffa3f21855
+      size: 148776
+  feature_engineering:
+    cmd: python3 feature_engineering.py ../../data/interim ../../data/interim
+    deps:
+    - path: ../../data/interim/X_test.csv
+      md5: 8147f8c684a6ec1c4f32c9093e196969
+      size: 15225091
+    - path: ../../data/interim/X_train.csv
+      md5: c4935cf3c1b73d41c23686db709591cb
+      size: 60832298
+    - path: ../../data/interim/y_test.csv
+      md5: eb06d5c4cb3f5235396387493722b175
+      size: 37208
+    - path: ../../data/interim/y_train.csv
+      md5: 4a167499445ec7a187a9c1ffa3f21855
+      size: 148776
+    - path: feature_engineering.py
+      md5: d6ecf64ab16b9e45faf5cf03905c1fc8
+      size: 9291
+    params:
+      params.yaml:
+        feature_engineering.n_bins_fine_classing: 10
+        sampling.bad_flag: bad_flag_final_v3
+    outs:
+    - path: ../../data/interim/X_test_transformed.csv
+      md5: 91636a445d9c0ab75c32b85af601cf64
+      size: 17801024
+    - path: ../../data/interim/X_train_transformed.csv
+      md5: ea63c809f69519ee33f16b4022b86225
+      size: 71140298
+    - path: ../../data/interim/y_test_transformed.csv
+      md5: eb06d5c4cb3f5235396387493722b175
+      size: 37208
+    - path: ../../data/interim/y_train_transformed.csv
+      md5: 4a167499445ec7a187a9c1ffa3f21855
+      size: 148776
+    - path: 5_1_2_information_value/output
+      md5: c99b59bed7c810adda3b7c60808f2369.dir
+      size: 13654
+      nfiles: 4
+  model_training:
+    cmd: python3 model_development.py ../../data/interim ../../data/processed
+    deps:
+    - path: ../../data/interim/X_test_transformed.csv
+      md5: 91636a445d9c0ab75c32b85af601cf64
+      size: 17801024
+    - path: ../../data/interim/X_train_transformed.csv
+      md5: ea63c809f69519ee33f16b4022b86225
+      size: 71140298
+    - path: ../../data/interim/y_test_transformed.csv
+      md5: eb06d5c4cb3f5235396387493722b175
+      size: 37208
+    - path: ../../data/interim/y_train_transformed.csv
+      md5: 4a167499445ec7a187a9c1ffa3f21855
+      size: 148776
+    - path: model_development.py
+      md5: a0b9059a4939f631f9d28b4782af2f14
+      size: 1657
+    params:
+      params.yaml:
+        model_development.categorical_columns_as_features:
+        - Division
+        - interestonly
+        model_development.model_with_intercept: yes
+        model_development.numerical_columns_as_features:
+        - priorfydscr
+        - mrfytdocc
+        - debt_yield_p1
+        - priorfyocc
+        - OLTV
+    outs:
+    - path: ../../data/processed/logistic-regression-model.csv
+      md5: 9217f32639ca35059d5e09d2352c7f06
+      size: 1161
+    - path: ../../data/processed/logistic-regression-model.pkl
+      md5: 68585b4144dda3ba0ab4e8673431a339
+      size: 11310982
+    - path: 5_1_3_model_coefficient/output
+      md5: 7081c800c4807a7b51d70f930be7cd9c.dir
+      size: 671
+      nfiles: 3

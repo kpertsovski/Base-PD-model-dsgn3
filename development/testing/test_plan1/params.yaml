@@ -1,0 +1,9 @@
+# file params.yaml
+
+model_loading:
+  model_name: 'logistic-regression-model'
+  bad_flag: 'bad_flag_final_v3'
+
+KS-statistic:
+  num_of_groups: 20
+

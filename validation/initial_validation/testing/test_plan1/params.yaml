@@ -1,0 +1,28 @@
+# file params.yaml
+
+model_loading:
+  model_name: 'logistic-regression-model'
+  bad_flag: 'bad_flag_final_v3'
+  
+KS-statistic:
+  num_of_groups: 20
+  
+Normal-test:
+  rating_class: 'rating_class.csv'
+
+model_testing:
+  KS:
+      Test_name: 'KS Statistic' 
+      Threshold: 0.4
+  VIF:
+      Test_name: 'VIF' 
+      Threshold: 4
+  AUROC:
+      Test_name: 'AUROC' 
+      Threshold: 0.7
+  Gini:
+      Test_name: 'Gini' 
+      Threshold: 0.4
+  Normal_test:
+      Test_name: "Normal Test"
+      Threshold: 0.05

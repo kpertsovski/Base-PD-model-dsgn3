@@ -1,0 +1,30 @@
+# Defines the order in which to display Statistical Test documentation
+
+# Define the directory name where content files are saved  
+dir_source: output
+
+# Define order statistical tests/tasks will be integrated into documentation
+dir_order:
+  - 5_1_1_data_quality
+  - 5_1_2_information_value
+  - 5_1_3_model_coefficient
+  - 5_1_4_score
+  
+# Define the content and order integrated into documentation
+dir_details:
+  5_1_1_data_quality:
+    file_order:
+      - description.md
+      - results.md
+  5_1_2_information_value:
+    file_order:
+      - description.md
+      - results.md
+  5_1_3_model_coefficient:
+    file_order:
+      - description.md
+      - results.md
+  5_1_4_score:
+    file_order:
+      - description.md
+      - results.md

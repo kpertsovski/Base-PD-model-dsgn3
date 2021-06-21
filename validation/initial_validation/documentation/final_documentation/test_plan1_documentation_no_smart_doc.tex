@@ -1,0 +1,233 @@
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+5.2 PD model stress test
+
+5.2.1 Kolmogorov--Smirnov Test
+
+The KS statistic is used to measure the discriminatory power of the PD
+model. It is defined as the maximum difference between the cumulative
+percentage of good samples (i.e., non-defaulters) and the cumulative
+percentage of bad samples (i.e., defaulters). A higher KS value implies
+a good fit of the model.
+
+The test returns a KS value.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Ks statistic train & Ks statistic test\tabularnewline
+\midrule
+\endhead
+0.4219 & 0.3811\tabularnewline
+\bottomrule
+\end{longtable}
+
+As shown in the above table, the KS value is higher than 0.4, indicating
+that discriminatory power of the model is good.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+5.2.2 Variance Inflation Factor
+
+This test is to assess the multicollinearity among the risk drivers. The
+variance inflation factor (VIF) quantifies the severity of
+multicollinearity in an regression analysis caused by correlation
+between multiple `independent variables' in a model (i.e., the risk
+drivers). It is a measure of how much the variance of an estimated
+regression coefficient is inflated because of multicollinearity in the
+model. High levels of multicollinearity results in unstable parameter
+estimates and renders the model statistically invalid.
+
+The test returns VIF value for each variable listed in the table below.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Variable & Vif\tabularnewline
+\midrule
+\endhead
+priorfydscr\_transformed & 1.3352\tabularnewline
+mrfytdocc\_transformed & 1.6708\tabularnewline
+debt\_yield\_p1\_transformed & 1.364\tabularnewline
+priorfyocc\_transformed & 1.6813\tabularnewline
+OLTV\_transformed & 1.2259\tabularnewline
+Division\_transformed & 1.0953\tabularnewline
+interestonly\_transformed & 1.045\tabularnewline
+\bottomrule
+\end{longtable}
+
+As shown in the above table, all variables have a VIF lower than 4,
+indicating the model does not suffer from multicollinearity.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+5.2.3 Receiver Operating Characteristic curve
+
+Receiver Operating Characteristic (ROC) is a curve in a unit square
+which is used to assess the accuracy of the diagnostic (e.g.~rating)
+system. The area under curve (AUC) is the area under the ROC curve.
+Higher AUC means higher discriminatory power of model.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Area under curve & Gini coefficient\tabularnewline
+\midrule
+\endhead
+0.7743 & 0.5487\tabularnewline
+\bottomrule
+\end{longtable}
+
+As shown in the above table, the AUC value is higher than 0.7 and the
+Gini value of the model is higher than 0.4, indicating that
+discriminatory power of the model is good.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+5.2.4 Normal Test
+
+The aim of the test is to evaluate the adequacy of observed default
+rates comparing to predicted PD. The test is performed on the level of
+rating grade. It is applied under the assumption that the mean default
+rate does not vary too much over time and that default events in
+different years are independent. The normal test is motivated by the
+Central Limit Theorem and is based on a normal approximation of the
+distribution of the time-averaged default rates. With high enough
+(\textgreater{}30) number (n) of observations which are independent,
+Point in Time (PIT) observed default rate (ODR) is expected to be
+normally distributed. The algorithm of the test is to calculate
+time-weighted (or simple arithmetic) average of all PiT ODRs, calculate
+standard error of this statistic and derive confidence interval for it.
+
+The test returns a table of p values and a brief interpretation of the
+test result for each rating grade.
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+\begin{minipage}[b]{0.12\columnwidth}\raggedright
+Rating class\strut
+\end{minipage} & \begin{minipage}[b]{0.26\columnwidth}\raggedright
+Predicted pd upper boundary\strut
+\end{minipage} & \begin{minipage}[b]{0.12\columnwidth}\raggedright
+Default rate\strut
+\end{minipage} & \begin{minipage}[b]{0.19\columnwidth}\raggedright
+Normal test p value\strut
+\end{minipage} & \begin{minipage}[b]{0.18\columnwidth}\raggedright
+Normal test result\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+0.1\%\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
+0.13\%\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+0.1063\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Acceptable\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+0.26\%\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
+0.22\%\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+0.1439\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Acceptable\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+3\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+0.42\%\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
+0.42\%\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+0.1088\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Acceptable\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+4\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+0.56\%\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
+0.53\%\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+0.1982\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Acceptable\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+5\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+0.71\%\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
+0.7\%\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+0.2359\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Acceptable\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+6\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+0.93\%\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
+0.91\%\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+0.2364\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Acceptable\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+7\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+1.12\%\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
+0.7\%\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+0.2665\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Acceptable\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+8\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+1.41\%\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
+1.1\%\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+0.4014\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Acceptable\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+9\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+2.56\%\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
+1.91\%\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+0.4329\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Acceptable\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+10\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+15\%\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
+5.37\%\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+0.0627\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Acceptable\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+As shown in the above table, the p value of all segments is less than
+0.05 which means the null hypothesis is accepted and the predicted PD
+does not deviate from the long run average of observed values. The
+accuracy of the model is adequate.

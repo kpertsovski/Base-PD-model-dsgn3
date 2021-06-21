@@ -1,0 +1,1 @@
+[{"Variable":"priorfydscr_transformed","VIF":1.3352},{"Variable":"mrfytdocc_transformed","VIF":1.6708},{"Variable":"debt_yield_p1_transformed","VIF":1.364},{"Variable":"priorfyocc_transformed","VIF":1.6813},{"Variable":"OLTV_transformed","VIF":1.2259},{"Variable":"Division_transformed","VIF":1.0953},{"Variable":"interestonly_transformed","VIF":1.045}]

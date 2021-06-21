@@ -1,0 +1,34 @@
+# Defines the order in which to display Statistical Test documentation
+
+# Define the directory name where content files are saved  
+dir_source: output
+
+# Define order statistical tests/tasks will be integrated into documentation
+dir_order:
+  - 01_KS_statistic
+  - 02_VIF_result
+  - 03_ROC_curve
+  - 04_Normal_test
+  
+# Define the content and order integrated into documentation
+dir_details:
+  01_KS_statistic:
+    file_order:
+      - description.md
+      - results.md
+      - conclusion.md
+  02_VIF_result: 
+    file_order:
+      - description.md
+      - results.md  
+      - conclusion.md
+  03_ROC_curve:
+    file_order:
+      - description.md
+      - results.md
+      - conclusion.md
+  04_Normal_test:
+    file_order:
+      - description.md
+      - results.md
+      - conclusion.md

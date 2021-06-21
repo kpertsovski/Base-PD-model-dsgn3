@@ -1,0 +1,56 @@
+stages:
+  model_loading:
+    cmd: Rscript 00_model_loading/model_loading.R ../../data/interim ../../data/processed
+    deps:
+    - 00_model_loading/model_loading.R
+#    - ../../data/interim/X_train_transformed.csv
+#    - ../../data/interim/X_test_transformed.csv
+#    - ../../data/interim/y_train_transformed.csv
+#    - ../../data/interim/y_test_transformed.csv
+    - ../../data/processed/logistic-regression-model.csv
+    params:
+    - model_loading.model_name
+    outs:
+    - 00_model_loading/logistic-regression-model.RDS:
+        cache: false
+  ROC-curve:
+    cmd: Rscript 5_1_4_ROC_curve/ROC_curve.R ../../data/interim 00_model_loading 
+    deps:
+    - 5_1_4_ROC_curve/ROC_curve.R
+#    - ../../data/interim/X_train_transformed.csv
+#    - ../../data/interim/X_test_transformed.csv
+#    - ../../data/interim/y_train_transformed.csv
+#    - ../../data/interim/y_test_transformed.csv
+    - 00_model_loading/logistic-regression-model.RDS
+    params:
+    - model_loading.model_name
+    - model_loading.bad_flag
+#    outs:
+#    - 5_1_4_ROC_curve/docs:
+#        cache: false
+#    - 5_1_4_ROC_curve/docs:
+#        persist: true
+    metrics:
+    - 5_1_4_ROC_curve/output/output.json:
+        cache: false        
+  KS-statistic:
+    cmd: Rscript 5_1_5_KS_statistic/01_KS_statistic.R ../../data/interim 00_model_loading
+    deps:
+    - 5_1_5_KS_statistic/01_KS_statistic.R
+#    - ../../data/interim/X_train_transformed.csv
+#    - ../../data/interim/X_test_transformed.csv
+#    - ../../data/interim/y_train_transformed.csv
+#    - ../../data/interim/y_test_transformed.csv
+    - 00_model_loading/logistic-regression-model.RDS
+    params:
+    - model_loading.model_name
+    - model_loading.bad_flag
+    - KS-statistic.num_of_groups
+#    outs:
+#    - 5_1_5_KS_statistic/docs:
+#        cache: false
+#    - 5_1_5_KS_statistic/docs:
+#        persist: true
+    metrics:
+    - 5_1_5_KS_statistic/output/output.json:
+        cache: false

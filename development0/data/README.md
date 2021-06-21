@@ -1,0 +1,2 @@
+This folder contains the overall data (raw, interim, and processed) that is required for model generation and perform the requisite tests.
+The data repository is also utilized to carry out model development, model validation, monitoring and other requisite tasks. 
