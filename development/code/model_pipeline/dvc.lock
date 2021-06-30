@@ -4,9 +4,9 @@ stages:
     cmd: python3 data_raw-sample.py ../../data/raw ../../data/interim
     deps:
     - path: ../../data/raw
-      md5: ca542a9c55341731e891ea667f3abaec.dir
+      md5: 8aac8bb5de065dabb8d48065e158655f.dir
       size: 1710364834
-      nfiles: 5
+      nfiles: 4
     - path: data_raw-sample.py
       md5: 655efdba0c1c3837a5fe27c706e7950e
       size: 2173
@@ -133,9 +133,9 @@ stages:
       md5: 4a167499445ec7a187a9c1ffa3f21855
       size: 148776
     - path: 5_1_2_information_value/output
-      md5: aa2660c41e16d280fce18280833bbb16.dir
-      size: 13655
-      nfiles: 4
+      md5: 6493aa7c440c0bdd4dbaaf316eedf5ad.dir
+      size: 13100
+      nfiles: 2
   model_training:
     cmd: python3 model_development.py ../../data/interim ../../data/processed
     deps:
@@ -168,15 +168,15 @@ stages:
         - OLTV
     outs:
     - path: ../../data/processed/logistic-regression-model.csv
-      md5: 9217f32639ca35059d5e09d2352c7f06
-      size: 1161
+      md5: 80c39e2bde44e954f29063e24ef085df
+      size: 1162
     - path: ../../data/processed/logistic-regression-model.pkl
-      md5: b94b0dccfe65405629482db4f923d6d2
-      size: 11312014
+      md5: 4458820485dcef95316f6fb00dd7dbd4
+      size: 11310325
     - path: 5_1_3_model_coefficient/output
-      md5: 7081c800c4807a7b51d70f930be7cd9c.dir
-      size: 671
-      nfiles: 3
+      md5: f567bcce622dd16a43e878904fe2ec87.dir
+      size: 385
+      nfiles: 1
   scores:
     cmd: python3 mapping.py ../../data/interim ../../data/processed ../../data/raw
     deps:
@@ -193,11 +193,11 @@ stages:
       md5: 4a167499445ec7a187a9c1ffa3f21855
       size: 148776
     - path: ../../data/processed/logistic-regression-model.csv
-      md5: 9217f32639ca35059d5e09d2352c7f06
-      size: 1161
+      md5: 80c39e2bde44e954f29063e24ef085df
+      size: 1162
     - path: ../../data/processed/logistic-regression-model.pkl
-      md5: b94b0dccfe65405629482db4f923d6d2
-      size: 11312014
+      md5: 4458820485dcef95316f6fb00dd7dbd4
+      size: 11310325
     - path: ../../data/raw/mapping.csv
       md5: 0c91dc67fbb510699c1738604769856a
       size: 216
@@ -206,11 +206,24 @@ stages:
       size: 6089
     outs:
     - path: ../../data/processed/rating_test.csv
-      md5: 363e21f91909762ff677f5c84d3f0ef5
-      size: 1208731
+      md5: bd83d5f99f7e5aad0e66aefdbbd73203
+      size: 1208660
     - path: ../../data/processed/rating_train.csv
-      md5: 5dba6cd57f38f4f4d0b97175eb69f0af
-      size: 4834205
+      md5: 58e51aec394045316ea48e5be34a2a5d
+      size: 4833638
+  data_quality_final_descriptive:
+    cmd: python3 DQ_descriptive.py ../../data/interim ../../data/interim
+    deps:
+    - path: ../../data/interim/TREPP_sample-dataset_term-defaults_post_dq_capping.csv
+      md5: e589948e40976714ceb7e894f6731927
+      size: 83259657
+    - path: DQ_descriptive.py
+      md5: 5cdaf4cc88dfc168f0045e4c7262b559
+      size: 3599
+    outs:
+    - path: 5_1_1_data_quality/output/descriptive_stats_new.json
+      md5: 7444ddf84db98ec9b836f75d03efdf59
+      size: 2075
   model_testing:
     cmd: python3 model_testing.py ../../data/interim ../../data/processed
     deps:
@@ -227,11 +240,11 @@ stages:
       md5: 4a167499445ec7a187a9c1ffa3f21855
       size: 148776
     - path: ../../data/processed/logistic-regression-model.csv
-      md5: 9217f32639ca35059d5e09d2352c7f06
-      size: 1161
+      md5: 80c39e2bde44e954f29063e24ef085df
+      size: 1162
     - path: ../../data/processed/logistic-regression-model.pkl
-      md5: b94b0dccfe65405629482db4f923d6d2
-      size: 11312014
+      md5: 4458820485dcef95316f6fb00dd7dbd4
+      size: 11310325
     - path: model_testing.py
       md5: b8d3b88b257b17902908aaf4151ed55a
       size: 2244
@@ -240,18 +253,5 @@ stages:
       md5: 9328e1d97a537b7c9b688595ec92f84e
       size: 68
     - path: ../../data/processed/plots.json
-      md5: 55e2eeb52b0e4b95ec291d111b668f52
-      size: 1971357
-  data_quality_final_descriptive:
-    cmd: python3 DQ_descriptive.py ../../data/interim ../../data/interim
-    deps:
-    - path: ../../data/interim/TREPP_sample-dataset_term-defaults_post_dq_capping.csv
-      md5: e589948e40976714ceb7e894f6731927
-      size: 83259657
-    - path: DQ_descriptive.py
-      md5: 5cdaf4cc88dfc168f0045e4c7262b559
-      size: 3599
-    outs:
-    - path: 5_1_1_data_quality/output/descriptive_stats_new.json
-      md5: 7444ddf84db98ec9b836f75d03efdf59
-      size: 2075
+      md5: 5c033917067f7c07db23d59ba39918a1
+      size: 1971125

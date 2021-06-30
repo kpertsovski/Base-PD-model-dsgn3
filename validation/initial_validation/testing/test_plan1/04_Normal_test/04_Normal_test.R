@@ -296,10 +296,17 @@ test = cbind(X_test,y_test)
 full_data = rbind(train,test)
 
 # Read rating class
-rating_class_FileName <- paste0(ROOT,"/../../../data/raw/",rating_class)
+print("****")
+print(ROOT)
+print("****")
+
+rating_class_FileName <- paste0(ROOT,"../data/raw/",rating_class)
 rating_class <- read.csv(rating_class_FileName)
 
 # Load model
+print("****")
+print(ROOT)
+print("****")
 Reg <- readRDS(file.path(ROOT,"../00_model_loading",model_name))
 
 # Creating a new workbook for outputs or use an existing template

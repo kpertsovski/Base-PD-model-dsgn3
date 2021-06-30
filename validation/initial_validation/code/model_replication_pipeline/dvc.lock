@@ -4,9 +4,9 @@ stages:
     cmd: python3 data_raw-sample.py ../../../../development/data/raw ../../data/interim
     deps:
     - path: ../../../../development/data/raw
-      md5: ca542a9c55341731e891ea667f3abaec.dir
+      md5: 8aac8bb5de065dabb8d48065e158655f.dir
       size: 1710364834
-      nfiles: 5
+      nfiles: 4
     - path: data_raw-sample.py
       md5: 655efdba0c1c3837a5fe27c706e7950e
       size: 2173
@@ -50,9 +50,9 @@ stages:
       md5: 2257da43604874507606526270597c2c
       size: 84626005
     - path: 5_1_1_data_quality/output
-      md5: 269286497aea8e251e742e8bf26ad41f.dir
-      size: 106456
-      nfiles: 13
+      md5: 067567b08464cd30b50cb056c70b5fc7.dir
+      size: 103739
+      nfiles: 11
   data_sampling:
     cmd: python3 sampling.py ../../data/interim ../../data/interim
     deps:
@@ -115,9 +115,9 @@ stages:
       md5: 779ab1a4710dd5c787c9e7a0fc891c73
       size: 297534
     - path: 5_1_2_univariate_analysis/output
-      md5: 6805b261a27f617056df0791ecb6de53.dir
-      size: 24438
-      nfiles: 9
+      md5: 064430fb27c8f72f1f392522a4e1a086.dir
+      size: 23822
+      nfiles: 7
   model_training:
     cmd: python3 model_development.py ../../data/interim ../../data/processed
     deps:
@@ -150,28 +150,11 @@ stages:
         - OLTV
     outs:
     - path: ../../data/processed/logistic-regression-model.csv
-      md5: 1700ac199671a70a6d735b11681c7f71
-      size: 1164
+      md5: fc4126b4f33f58edbb344b8d2dad4b83
+      size: 1158
     - path: ../../data/processed/logistic-regression-model.pkl
-      md5: c4c55966aef7fe32ad6a6b4f4b98ce0b
-      size: 11312014
-  model_testing:
-    cmd: python3 model_testing.py ../../data/raw ../../data/processed
-    deps:
-    - path: ../../data/processed/logistic-regression-model.csv
-      md5: 1700ac199671a70a6d735b11681c7f71
-      size: 1164
-    - path: ../../data/raw/front-office_logistic-regression-model.csv
-      md5: 1700ac199671a70a6d735b11681c7f71
-      size: 1164
-    - path: model_testing.py
-      md5: 553d4c0dfa2a7e7cf487902bec40d383
-      size: 1233
-    outs:
-    - path: 5_1_3_model_coefficient_comparison/output
-      md5: a86435aad80dfebffd0135692802acca.dir
-      size: 1731
-      nfiles: 3
+      md5: 07fe36ac7b578a5746007aa1c928e426
+      size: 11310291
   scores:
     cmd: python3 mapping.py ../../data/interim ../../data/processed ../../data/raw
     deps:
@@ -188,11 +171,11 @@ stages:
       md5: 779ab1a4710dd5c787c9e7a0fc891c73
       size: 297534
     - path: ../../data/processed/logistic-regression-model.csv
-      md5: 1700ac199671a70a6d735b11681c7f71
-      size: 1164
+      md5: fc4126b4f33f58edbb344b8d2dad4b83
+      size: 1158
     - path: ../../data/processed/logistic-regression-model.pkl
-      md5: c4c55966aef7fe32ad6a6b4f4b98ce0b
-      size: 11312014
+      md5: 07fe36ac7b578a5746007aa1c928e426
+      size: 11310291
     - path: ../../data/raw/mapping.csv
       md5: 0c91dc67fbb510699c1738604769856a
       size: 216
@@ -201,8 +184,25 @@ stages:
       size: 6088
     outs:
     - path: ../../data/processed/rating_test.csv
-      md5: c050902bf2ba0eb217cfc44eaae06c86
-      size: 1212011
+      md5: a8274cdd55ce31d36bdd8257aac14460
+      size: 1211933
     - path: ../../data/processed/rating_train.csv
-      md5: 8ecaa33dca19d739e55680fd0c7b4d15
-      size: 4847624
+      md5: 4975d0021440fe9c1d78b0222f0b9664
+      size: 4847525
+  model_testing:
+    cmd: python3 model_testing.py ../../data/raw ../../data/processed
+    deps:
+    - path: ../../data/processed/logistic-regression-model.csv
+      md5: fc4126b4f33f58edbb344b8d2dad4b83
+      size: 1158
+    - path: ../../data/raw/front-office_logistic-regression-model.csv
+      md5: 1700ac199671a70a6d735b11681c7f71
+      size: 1164
+    - path: model_testing.py
+      md5: 553d4c0dfa2a7e7cf487902bec40d383
+      size: 1233
+    outs:
+    - path: 5_1_3_model_coefficient_comparison/output
+      md5: 41fbd6602fb2a24aa0e0271c09ec7b5e.dir
+      size: 905
+      nfiles: 1

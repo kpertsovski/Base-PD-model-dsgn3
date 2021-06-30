@@ -1,0 +1,13 @@
+# Top-level Doc Config - Validations
+# Displays markdown files in the following order:
+# 1) introduction files
+# 2) x_documentation.md files specified in 'test_order'
+# 3) conclusion files
+
+dir_output_path: documentation/final_documentation # directory where the new folder will be put
+file_name: Validation_Document
+introduction:
+  - header.md
+dir_order:
+  - ../code/model_replication_pipeline
+  - ../testing/test_plan1

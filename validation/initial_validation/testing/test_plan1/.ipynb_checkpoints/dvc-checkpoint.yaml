@@ -1,0 +1,138 @@
+stages:
+  model_loading:
+    cmd: Rscript 00_model_loading/model_loading.R ../../data/interim ../../data/processed
+    deps:
+    - 00_model_loading/model_loading.R
+#    - ../../data/interim/X_train_transformed.csv
+#    - ../../data/interim/X_test_transformed.csv
+#    - ../../data/interim/y_train_transformed.csv
+#    - ../../data/interim/y_test_transformed.csv
+    - ../../data/processed/logistic-regression-model.csv
+    params:
+    - model_loading.model_name
+    outs:
+    - 00_model_loading/logistic-regression-model.RDS:
+        cache: false
+        
+  KS-statistic:
+    cmd: Rscript 01_KS_statistic/01_KS_statistic.R ../../data/interim 00_model_loading
+    deps:
+    - 01_KS_statistic/01_KS_statistic.R
+#    - ../../data/interim/X_train_transformed.csv
+#    - ../../data/interim/X_test_transformed.csv
+#    - ../../data/interim/y_train_transformed.csv
+#    - ../../data/interim/y_test_transformed.csv
+    - 00_model_loading/logistic-regression-model.RDS
+    params:
+    - model_loading.model_name
+    - model_loading.bad_flag
+    - KS-statistic.num_of_groups
+    outs:
+    - 01_KS_statistic/output:
+        cache: false
+    - 01_KS_statistic/output:
+        persist: true
+
+#Step below is added to automatically generate testing conclusion
+  KS-statistic_conclusion:
+    cmd: Rscript 01_KS_statistic/Smart_Conclusion_KS.R ../../data/interim 00_model_loading
+    deps:
+    - 01_KS_statistic/Smart_Conclusion_KS.R
+    - 01_KS_statistic/01_KS_statistic.R
+    - 00_model_loading/logistic-regression-model.RDS
+    params:
+    - model_loading.model_name
+    - model_loading.bad_flag
+    - KS-statistic.num_of_groups
+    - model_testing.KS.Test_name
+    - model_testing.KS.Threshold
+        
+  VIF-result:
+    cmd: Rscript 02_VIF_result/02_VIF_result.R 00_model_loading
+    deps:
+    - 02_VIF_result/02_VIF_result.R
+    - 00_model_loading/logistic-regression-model.RDS
+    params:
+    - model_loading.model_name
+    outs:
+    - 02_VIF_result/output:
+        cache: false
+    - 02_VIF_result/output:
+        persist: true
+        
+#Step below is added to automatically generate testing conclusion
+  VIF-result_conclusion:
+    cmd: Rscript 02_VIF_result/Smart_Conclusion_VIF.R 00_model_loading
+    deps:
+    - 02_VIF_result/Smart_Conclusion_VIF.R
+    - 02_VIF_result/02_VIF_result.R
+    - 00_model_loading/logistic-regression-model.RDS
+    params:
+    - model_loading.model_name
+    - model_testing.VIF.Test_name
+    - model_testing.VIF.Threshold
+        
+  ROC-curve:
+    cmd: Rscript 03_ROC_curve/03_ROC_curve.R ../../data/interim 00_model_loading 
+    deps:
+    - 03_ROC_curve/03_ROC_curve.R
+#    - ../../data/interim/X_train_transformed.csv
+#    - ../../data/interim/X_test_transformed.csv
+#    - ../../data/interim/y_train_transformed.csv
+#    - ../../data/interim/y_test_transformed.csv
+    - 00_model_loading/logistic-regression-model.RDS
+    params:
+    - model_loading.model_name
+    - model_loading.bad_flag
+    outs:
+    - 03_ROC_curve/output:
+        cache: false
+    - 03_ROC_curve/output:
+        persist: true
+
+#Step below is added to automatically generate testing conclusion
+  ROC-curve_conclusion:
+    cmd: Rscript 03_ROC_curve/Smart_Conclusion_ROC.R ../../data/interim 00_model_loading 
+    deps:
+    - 03_ROC_curve/Smart_Conclusion_ROC.R
+    - 03_ROC_curve/03_ROC_curve.R
+    - 00_model_loading/logistic-regression-model.RDS
+    params:
+    - model_loading.model_name
+    - model_loading.bad_flag
+    - model_testing.AUROC.Test_name
+    - model_testing.AUROC.Threshold
+        
+##  Normal-test:
+##    cmd: Rscript 04_Normal_test/04_Normal_test.R ../../data/interim 00_model_loading 
+##    deps:
+##    - 04_Normal_test/04_Normal_test.R
+#    - ../../data/interim/X_train_transformed.csv
+#    - ../../data/interim/X_test_transformed.csv
+#    - ../../data/interim/y_train_transformed.csv
+#    - ../../data/interim/y_test_transformed.csv
+##    - 00_model_loading/logistic-regression-model.RDS
+##    params:
+##    - model_loading.model_name
+##    - model_loading.bad_flag
+##    - Normal-test.rating_class
+##    outs:
+##    - 04_Normal_test/output:
+##        cache: false
+##    - 04_Normal_test/output:
+##        persist: true
+        
+#Step below is added to automatically generate testing conclusion
+##  Normal-test_conclusion:
+##    cmd: Rscript 04_Normal_test/Smart_Conclusion_Normal.R ../../data/interim 00_model_loading 
+##    deps:
+##    - 04_Normal_test/Smart_Conclusion_Normal.R
+##    - 04_Normal_test/04_Normal_test.R
+##    - 00_model_loading/logistic-regression-model.RDS
+##    params:
+##    - model_loading.model_name
+##    - model_loading.bad_flag
+##    - Normal-test.rating_class
+##    - model_testing.Normal_test.Test_name
+##    - model_testing.Normal_test.Threshold
+        

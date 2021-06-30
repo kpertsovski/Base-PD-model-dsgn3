@@ -103,36 +103,36 @@ stages:
     - model_testing.AUROC.Test_name
     - model_testing.AUROC.Threshold
         
-  Normal-test:
-    cmd: Rscript 04_Normal_test/04_Normal_test.R ../../data/interim 00_model_loading 
-    deps:
-    - 04_Normal_test/04_Normal_test.R
+##  Normal-test:
+##    cmd: Rscript 04_Normal_test/04_Normal_test.R ../../data/interim 00_model_loading 
+##    deps:
+##    - 04_Normal_test/04_Normal_test.R
 #    - ../../data/interim/X_train_transformed.csv
 #    - ../../data/interim/X_test_transformed.csv
 #    - ../../data/interim/y_train_transformed.csv
 #    - ../../data/interim/y_test_transformed.csv
-    - 00_model_loading/logistic-regression-model.RDS
-    params:
-    - model_loading.model_name
-    - model_loading.bad_flag
-    - Normal-test.rating_class
-    outs:
-    - 04_Normal_test/output:
-        cache: false
-    - 04_Normal_test/output:
-        persist: true
+##    - 00_model_loading/logistic-regression-model.RDS
+##    params:
+##    - model_loading.model_name
+##    - model_loading.bad_flag
+##    - Normal-test.rating_class
+##    outs:
+##    - 04_Normal_test/output:
+##        cache: false
+##    - 04_Normal_test/output:
+##        persist: true
         
 #Step below is added to automatically generate testing conclusion
-  Normal-test_conclusion:
-    cmd: Rscript 04_Normal_test/Smart_Conclusion_Normal.R ../../data/interim 00_model_loading 
-    deps:
-    - 04_Normal_test/Smart_Conclusion_Normal.R
-    - 04_Normal_test/04_Normal_test.R
-    - 00_model_loading/logistic-regression-model.RDS
-    params:
-    - model_loading.model_name
-    - model_loading.bad_flag
-    - Normal-test.rating_class
-    - model_testing.Normal_test.Test_name
-    - model_testing.Normal_test.Threshold
+##  Normal-test_conclusion:
+##    cmd: Rscript 04_Normal_test/Smart_Conclusion_Normal.R ../../data/interim 00_model_loading 
+##    deps:
+##    - 04_Normal_test/Smart_Conclusion_Normal.R
+##    - 04_Normal_test/04_Normal_test.R
+##    - 00_model_loading/logistic-regression-model.RDS
+##    params:
+##    - model_loading.model_name
+##    - model_loading.bad_flag
+##    - Normal-test.rating_class
+##    - model_testing.Normal_test.Test_name
+##    - model_testing.Normal_test.Threshold
         
